@@ -174,7 +174,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For questions, suggestions, or issues:
 
 - Create an issue in the repository
-- [Buy me a coffee](https://buymeacoffee.com/fahim)
 
 ---
 
