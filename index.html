@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Easy Hand - All-in-One Tools</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #4caf50;
+        --secondary-color: #45a049;
+        --card-hover-bg: #f8f9fa;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+      }
+
+      .navbar {
+        background-color: var(--primary-color);
+      }
+
+      .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("background.jpg");
+        background-size: cover;
+        color: white;
+        padding: 100px 0;
+      }
+
+      .category-section {
+        padding: 40px 0;
+        background-color: #f8f9fa;
+      }
+
+      .category-title {
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--primary-color);
+      }
+
+      .tool-card {
+        border: 1px solid #eee;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        height: 100%;
+        background: white;
+      }
+
+      .tool-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        background: var(--card-hover-bg);
+      }
+
+      .tool-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+      }
+
+      .upload-area {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 8px;
+        margin-top: 15px;
+        transition: all 0.3s ease;
+      }
+
+      .upload-area:hover {
+        border-color: #4caf50;
+        background-color: rgba(76, 175, 80, 0.05);
+      }
+
+      .tool-description {
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      @media (max-width: 768px) {
+        .tool-card {
+          margin-bottom: 20px;
+        }
+
+        .category-section {
+          padding: 20px 0;
+        }
+      }
+
+      .coming-soon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #ffc107;
+        color: #000;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+
+      .btn-primary:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+      }
+
+      .result-area {
+        min-height: 60px;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: #f8f9fa;
+      }
+
+      .text-center {
+        text-align: center;
+        color: #666;
+        margin: 10px 0;
+      }
+
+      /* Add styles for text-based tools */
+      .text-input-area {
+        width: 100%;
+        min-height: 150px;
+        margin-top: 15px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Easy Hand</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#file-conversion">File Conversion</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#image-media">Image & Media</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#text-document">Text & Document</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#programming">Programming</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#security">Security</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+      <div class="container">
+        <h1>Welcome to Easy Hand</h1>
+        <p class="lead">Your all-in-one solution for everyday digital tasks</p>
+      </div>
+    </section>
+
+    <!-- File Conversion Tools -->
+    <section id="file-conversion" class="category-section">
+      <div class="container">
+        <h2 class="category-title">🔹 File Conversion Tools</h2>
+        <div class="row g-4">
+          <!-- DOCX to PDF -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-file-pdf tool-icon"></i>
+              <h5>DOCX to PDF</h5>
+              <p class="tool-description">
+                Convert Word documents to PDF format easily.
+              </p>
+              <div class="upload-area">
+                <p>Drop DOCX file here</p>
+                <input type="file" class="d-none" accept=".docx" />
+              </div>
+            </div>
+          </div>
+
+          <!-- PDF to DOCX -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-file-word tool-icon"></i>
+              <h5>PDF to DOCX</h5>
+              <p class="tool-description">
+                Convert PDF files back to editable Word format.
+              </p>
+              <div class="upload-area">
+                <p>Drop PDF file here</p>
+                <input type="file" class="d-none" accept=".pdf" />
+              </div>
+            </div>
+          </div>
+
+          <!-- PYNB to PDF -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fab fa-python tool-icon"></i>
+              <h5>PYNB to PDF</h5>
+              <p class="tool-description">
+                Convert Jupyter Notebooks to PDF format.
+              </p>
+              <div class="upload-area">
+                <p>Drop PYNB file here</p>
+                <input type="file" class="d-none" accept=".ipynb" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Image to PDF -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-images tool-icon"></i>
+              <h5>Image to PDF</h5>
+              <p class="tool-description">Convert images to PDF documents.</p>
+              <div class="upload-area">
+                <p>Drop image files here</p>
+                <input type="file" class="d-none" accept="image/*" multiple />
+              </div>
+            </div>
+          </div>
+
+          <!-- Excel to PDF -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-file-excel tool-icon"></i>
+              <h5>Excel to PDF</h5>
+              <p class="tool-description">
+                Convert Excel spreadsheets to PDF format.
+              </p>
+              <div class="upload-area">
+                <p>Drop Excel file here</p>
+                <input type="file" class="d-none" accept=".xlsx,.xls" />
+              </div>
+            </div>
+          </div>
+
+          <!-- PPT to PDF -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-file-powerpoint tool-icon"></i>
+              <h5>PPT to PDF</h5>
+              <p class="tool-description">
+                Convert PowerPoint presentations to PDF.
+              </p>
+              <div class="upload-area">
+                <p>Drop PPT file here</p>
+                <input type="file" class="d-none" accept=".ppt,.pptx" />
+              </div>
+            </div>
+          </div>
+
+          <!-- CSV to Excel -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-table tool-icon"></i>
+              <h5>CSV to Excel</h5>
+              <p class="tool-description">
+                Convert CSV files to Excel format (XLSX).
+              </p>
+              <div class="upload-area">
+                <p>Drop CSV file here</p>
+                <input type="file" class="d-none" accept=".csv" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Markdown to HTML -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fab fa-markdown tool-icon"></i>
+              <h5>Markdown to HTML</h5>
+              <p class="tool-description">
+                Convert Markdown files to HTML format.
+              </p>
+              <div class="upload-area">
+                <p>Drop MD file here</p>
+                <input type="file" class="d-none" accept=".md,.markdown" />
+              </div>
+            </div>
+          </div>
+
+          <!-- EPUB to PDF -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-book tool-icon"></i>
+              <h5>EPUB to PDF</h5>
+              <p class="tool-description">
+                Convert eBooks from EPUB to PDF format.
+              </p>
+              <div class="upload-area">
+                <p>Drop EPUB file here</p>
+                <input type="file" class="d-none" accept=".epub" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Image & Media Processing -->
+    <section id="image-media" class="category-section">
+      <div class="container">
+        <h2 class="category-title">🔹 Image & Media Processing</h2>
+        <div class="row g-4">
+          <!-- Image Compressor -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-compress-arrows-alt tool-icon"></i>
+              <h5>Image Compressor</h5>
+              <p class="tool-description">
+                Compress images without losing quality.
+              </p>
+              <div class="upload-area">
+                <p>Drop image here</p>
+                <input type="file" class="d-none" accept="image/*" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Image Resizer -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-expand tool-icon"></i>
+              <h5>Image Resizer</h5>
+              <p class="tool-description">
+                Resize images by dimensions or percentage.
+              </p>
+              <div class="upload-area">
+                <p>Drop image here</p>
+                <input type="file" class="d-none" accept="image/*" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Image Format Converter -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-exchange-alt tool-icon"></i>
+              <h5>Image Format Converter</h5>
+              <p class="tool-description">
+                Convert between image formats (JPG, PNG, WebP).
+              </p>
+              <div class="upload-area">
+                <p>Drop image here</p>
+                <input type="file" class="d-none" accept="image/*" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Background Remover -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-cut tool-icon"></i>
+              <h5>Background Remover</h5>
+              <p class="tool-description">Remove image backgrounds using AI.</p>
+              <div class="upload-area">
+                <p>Drop image here</p>
+                <input type="file" class="d-none" accept="image/*" />
+              </div>
+            </div>
+          </div>
+
+          <!-- PDF Compressor -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-file-archive tool-icon"></i>
+              <h5>PDF Compressor</h5>
+              <p class="tool-description">Reduce PDF file size efficiently.</p>
+              <div class="upload-area">
+                <p>Drop PDF here</p>
+                <input type="file" class="d-none" accept=".pdf" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Watermark Remover -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-eraser tool-icon"></i>
+              <h5>Watermark Remover</h5>
+              <p class="tool-description">
+                Remove watermarks from images & PDFs.
+              </p>
+              <div class="upload-area">
+                <p>Drop file here</p>
+                <input type="file" class="d-none" accept="image/*,.pdf" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Reverse Image Search -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-search tool-icon"></i>
+              <h5>Reverse Image Search</h5>
+              <p class="tool-description">Find similar images online.</p>
+              <div class="upload-area">
+                <p>Drop image here</p>
+                <input type="file" class="d-none" accept="image/*" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Text & Document Tools -->
+    <section id="text-document" class="category-section">
+      <div class="container">
+        <h2 class="category-title">🔹 Text & Document Tools</h2>
+        <div class="row g-4">
+          <!-- Text Case Converter -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-font tool-icon"></i>
+              <h5>Text Case Converter</h5>
+              <p class="tool-description">
+                Convert text case (upper, lower, title).
+              </p>
+              <textarea
+                class="text-input-area"
+                placeholder="Enter or paste your text here"
+              ></textarea>
+              <div class="btn-group w-100 mt-2">
+                <button class="btn btn-primary">UPPER</button>
+                <button class="btn btn-primary">lower</button>
+                <button class="btn btn-primary">Title</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plagiarism Checker -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-check-double tool-icon"></i>
+              <h5>Plagiarism Checker</h5>
+              <p class="tool-description">Check content for plagiarism.</p>
+              <textarea
+                class="text-input-area"
+                placeholder="Enter or paste your text here"
+              ></textarea>
+              <button class="btn btn-primary w-100 mt-2">
+                Check Plagiarism
+              </button>
+              <div class="result-area mt-2"></div>
+            </div>
+          </div>
+
+          <!-- Grammar Checker -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-spell-check tool-icon"></i>
+              <h5>Grammar Checker</h5>
+              <p class="tool-description">Check grammar and spelling.</p>
+              <textarea
+                class="text-input-area"
+                placeholder="Enter or paste your text here"
+              ></textarea>
+              <button class="btn btn-primary w-100 mt-2">Check Grammar</button>
+              <div class="result-area mt-2"></div>
+            </div>
+          </div>
+
+          <!-- AI Paraphraser -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-robot tool-icon"></i>
+              <h5>AI Paraphraser</h5>
+              <p class="tool-description">Rewrite text using AI.</p>
+              <div class="upload-area">
+                <p>Drop text file here</p>
+                <input type="file" class="d-none" accept=".txt" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Summarizer -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-compress tool-icon"></i>
+              <h5>Summarizer</h5>
+              <p class="tool-description">Generate text summaries using AI.</p>
+              <div class="upload-area">
+                <p>Drop document here</p>
+                <input type="file" class="d-none" accept=".txt,.doc,.docx" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Text-to-Speech -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-volume-up tool-icon"></i>
+              <h5>Text-to-Speech</h5>
+              <p class="tool-description">Convert text to natural speech.</p>
+              <div class="upload-area">
+                <p>Drop text file here</p>
+                <input type="file" class="d-none" accept=".txt" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Speech-to-Text -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-microphone tool-icon"></i>
+              <h5>Speech-to-Text</h5>
+              <p class="tool-description">Transcribe audio to text.</p>
+              <div class="upload-area">
+                <p>Drop audio file here</p>
+                <input type="file" class="d-none" accept="audio/*" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programming & Development Tools -->
+    <section id="programming" class="category-section">
+      <div class="container">
+        <h2 class="category-title">🔹 Programming & Development Tools</h2>
+        <div class="row g-4">
+          <!-- JSON Formatter -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-code tool-icon"></i>
+              <h5>JSON Formatter</h5>
+              <p class="tool-description">Format and validate JSON data.</p>
+              <textarea
+                class="text-input-area"
+                placeholder="Paste your JSON here"
+              ></textarea>
+              <div class="btn-group w-100 mt-2">
+                <button class="btn btn-primary">Format</button>
+                <button class="btn btn-primary">Minify</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Base64 Tools -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-exchange-alt tool-icon"></i>
+              <h5>Base64 Tools</h5>
+              <p class="tool-description">Encode/decode Base64 data.</p>
+              <textarea
+                class="text-input-area"
+                placeholder="Enter text or Base64 string"
+              ></textarea>
+              <div class="btn-group w-100 mt-2">
+                <button class="btn btn-primary">Encode</button>
+                <button class="btn btn-primary">Decode</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- QR Code Tools -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-qrcode tool-icon"></i>
+              <h5>QR Code Tools</h5>
+              <p class="tool-description">Generate & scan QR codes.</p>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter text or URL"
+              />
+              <button class="btn btn-primary w-100 mt-2">
+                Generate QR Code
+              </button>
+              <div class="text-center mt-2">- OR -</div>
+              <div class="upload-area mt-2">
+                <p>Drop QR image to scan</p>
+                <input type="file" class="d-none" accept="image/*" />
+              </div>
+            </div>
+          </div>
+
+          <!-- URL Shortener -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-link tool-icon"></i>
+              <h5>URL Shortener</h5>
+              <p class="tool-description">Create short URLs easily.</p>
+              <div class="input-group mt-3">
+                <input
+                  type="url"
+                  class="form-control"
+                  placeholder="Paste your URL here"
+                />
+                <button class="btn btn-primary">Shorten</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- UUID Generator -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-fingerprint tool-icon"></i>
+              <h5>UUID Generator</h5>
+              <p class="tool-description">Generate unique identifiers.</p>
+              <button class="btn btn-primary w-100 mt-3">Generate UUID</button>
+              <input
+                type="text"
+                class="form-control mt-2"
+                readonly
+                placeholder="Generated UUID will appear here"
+              />
+            </div>
+          </div>
+
+          <!-- Regex Tester -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-terminal tool-icon"></i>
+              <h5>Regex Tester</h5>
+              <p class="tool-description">Test regular expressions.</p>
+              <div class="mt-3">
+                <input
+                  type="text"
+                  class="form-control mb-2"
+                  placeholder="Enter regex pattern"
+                />
+                <textarea
+                  class="form-control"
+                  rows="3"
+                  placeholder="Enter test text"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Beautifier -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-indent tool-icon"></i>
+              <h5>Code Beautifier</h5>
+              <p class="tool-description">Format and beautify code.</p>
+              <div class="upload-area">
+                <p>Drop code file here</p>
+                <input type="file" class="d-none" accept=".html,.css,.js,.py" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cybersecurity & Privacy -->
+    <section id="security" class="category-section">
+      <div class="container">
+        <h2 class="category-title">🔹 Cybersecurity & Privacy</h2>
+        <div class="row g-4">
+          <!-- Password Generator -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-key tool-icon"></i>
+              <h5>Password Generator</h5>
+              <p class="tool-description">Generate secure passwords.</p>
+              <div class="mt-3">
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    checked
+                    id="uppercase"
+                  />
+                  <label class="form-check-label" for="uppercase"
+                    >Uppercase</label
+                  >
+                </div>
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    checked
+                    id="numbers"
+                  />
+                  <label class="form-check-label" for="numbers">Numbers</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    checked
+                    id="symbols"
+                  />
+                  <label class="form-check-label" for="symbols">Symbols</label>
+                </div>
+                <div class="input-group mb-2">
+                  <input
+                    type="number"
+                    class="form-control"
+                    value="12"
+                    min="8"
+                    max="64"
+                    placeholder="Length"
+                  />
+                </div>
+                <button class="btn btn-primary w-100">Generate Password</button>
+                <input
+                  type="text"
+                  class="form-control mt-2"
+                  readonly
+                  placeholder="Generated password"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Hash Generator -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-hashtag tool-icon"></i>
+              <h5>Hash Generator</h5>
+              <p class="tool-description">Generate file & text hashes.</p>
+              <div class="mt-3">
+                <select class="form-select mb-2">
+                  <option value="md5">MD5</option>
+                  <option value="sha1">SHA-1</option>
+                  <option value="sha256">SHA-256</option>
+                  <option value="sha512">SHA-512</option>
+                </select>
+                <textarea
+                  class="form-control mb-2"
+                  placeholder="Enter text to hash"
+                ></textarea>
+                <div class="text-center">- OR -</div>
+                <div class="upload-area mt-2">
+                  <p>Drop file here</p>
+                  <input type="file" class="d-none" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- File Shredder -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-trash-alt tool-icon"></i>
+              <h5>File Shredder</h5>
+              <p class="tool-description">Securely delete files.</p>
+              <div class="upload-area">
+                <p>Drop file here</p>
+                <input type="file" class="d-none" />
+              </div>
+            </div>
+          </div>
+
+          <!-- IP Lookup -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-globe tool-icon"></i>
+              <h5>IP Lookup</h5>
+              <p class="tool-description">Get IP address information.</p>
+              <div class="input-group mt-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter IP address"
+                />
+                <button class="btn btn-primary">Lookup</button>
+              </div>
+              <div class="result-area mt-2 small">
+                <!-- Results will appear here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Email Validator -->
+          <div class="col-md-4 col-lg-3">
+            <div class="tool-card p-3">
+              <i class="fas fa-envelope-open tool-icon"></i>
+              <h5>Email Validator</h5>
+              <p class="tool-description">Validate email addresses.</p>
+              <div class="input-group mt-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Enter email address"
+                />
+                <button class="btn btn-primary">Validate</button>
+              </div>
+              <div class="result-area mt-2 small"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Easy Hand</h5>
+            <p>Making digital tasks easier for everyone.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <h5>Contact Us</h5>
+            <p>Email: contact@easyhand.com</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const dropZones = document.querySelectorAll(".drop-zone");
+
+        dropZones.forEach((zone) => {
+          zone.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            zone.classList.add("dragover");
+          });
+
+          zone.addEventListener("dragleave", () => {
+            zone.classList.remove("dragover");
+          });
+
+          zone.addEventListener("drop", async (e) => {
+            e.preventDefault();
+            zone.classList.remove("dragover");
+
+            const files = e.dataTransfer.files;
+            const endpoint = zone.getAttribute("data-endpoint");
+
+            if (!endpoint) {
+              console.error("No endpoint specified for this drop zone");
+              return;
+            }
+
+            const formData = new FormData();
+            if (endpoint === "/api/convert/images-to-pdf") {
+              // Handle multiple files for images
+              for (let file of files) {
+                formData.append("files", file);
+              }
+            } else {
+              // Handle single file for other conversions
+              formData.append("file", files[0]);
+            }
+
+            try {
+              zone.innerHTML = '<div class="loading">Converting...</div>';
+
+              const response = await fetch(`http://localhost:5000${endpoint}`, {
+                method: "POST",
+                body: formData,
+              });
+
+              if (!response.ok) {
+                throw new Error("Conversion failed");
+              }
+
+              const blob = await response.blob();
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = "converted" + getFileExtension(endpoint);
+              document.body.appendChild(a);
+              a.click();
+              window.URL.revokeObjectURL(url);
+              document.body.removeChild(a);
+
+              alert("Conversion successful!");
+            } catch (error) {
+              console.error("Error:", error);
+              alert("Error during conversion: " + error.message);
+            } finally {
+              // Restore original content
+              zone.innerHTML = `
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drag & Drop your file here<br>or click to select</p>
+              `;
+            }
+          });
+
+          // Add click to upload
+          zone.addEventListener("click", () => {
+            const input = document.createElement("input");
+            input.type = "file";
+            input.multiple =
+              zone.getAttribute("data-endpoint") ===
+              "/api/convert/images-to-pdf";
+            input.onchange = (e) => {
+              const formData = new FormData();
+              const endpoint = zone.getAttribute("data-endpoint");
+
+              if (endpoint === "/api/convert/images-to-pdf") {
+                for (let file of e.target.files) {
+                  formData.append("files", file);
+                }
+              } else {
+                formData.append("file", e.target.files[0]);
+              }
+
+              // Use the same fetch logic as drop
+              fetch(`http://localhost:5000${endpoint}`, {
+                method: "POST",
+                body: formData,
+              })
+                .then((response) => response.blob())
+                .then((blob) => {
+                  const url = window.URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = "converted" + getFileExtension(endpoint);
+                  document.body.appendChild(a);
+                  a.click();
+                  window.URL.revokeObjectURL(url);
+                  document.body.removeChild(a);
+                  alert("Conversion successful!");
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                  alert("Error during conversion: " + error.message);
+                });
+            };
+            input.click();
+          });
+        });
+      });
+
+      function getFileExtension(endpoint) {
+        switch (endpoint) {
+          case "/api/convert/docx-to-pdf":
+            return ".pdf";
+          case "/api/convert/pdf-to-docx":
+            return ".docx";
+          case "/api/convert/images-to-pdf":
+            return ".pdf";
+          case "/api/convert/csv-to-excel":
+            return ".xlsx";
+          default:
+            return "";
+        }
+      }
+    </script>
+  </body>
+</html>

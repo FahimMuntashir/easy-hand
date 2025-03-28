@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Tools & Converters</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .section {
+        margin-bottom: 30px;
+      }
+      h2 {
+        color: #333;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+      .card {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .card h3 {
+        margin-top: 0;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .card h3 i {
+        color: #3498db;
+      }
+      .drop-zone {
+        border: 2px dashed #ccc;
+        border-radius: 4px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 15px;
+      }
+      .drop-zone:hover {
+        background-color: #f8f9fa;
+        border-color: #3498db;
+      }
+      .drop-zone.dragover {
+        background-color: #e9ecef;
+        border-color: #3498db;
+      }
+      .drop-zone i {
+        font-size: 2em;
+        color: #7f8c8d;
+        margin-bottom: 10px;
+      }
+      .loading {
+        text-align: center;
+        padding: 20px;
+        color: #666;
+      }
+      .input-group {
+        margin-bottom: 15px;
+      }
+      .input-group input[type="text"],
+      .input-group input[type="number"],
+      .input-group textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-top: 5px;
+      }
+      .btn {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .btn:hover {
+        background-color: #2980b9;
+      }
+      .result-area {
+        margin-top: 15px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        min-height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- File Conversion Tools Section -->
+      <section class="section">
+        <h2><i class="fas fa-exchange-alt"></i> File Conversion Tools</h2>
+        <div class="tools-grid">
+          <!-- DOCX to PDF -->
+          <div class="card">
+            <h3><i class="fas fa-file-pdf"></i> DOCX to PDF</h3>
+            <div class="drop-zone" data-endpoint="/api/convert/docx-to-pdf">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Drag & Drop DOCX file here<br>or click to select</p>
+            </div>
+          </div>
+
+          <!-- PDF to DOCX -->
+          <div class="card">
+            <h3><i class="fas fa-file-word"></i> PDF to DOCX</h3>
+            <div class="drop-zone" data-endpoint="/api/convert/pdf-to-docx">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Drag & Drop PDF file here<br>or click to select</p>
+            </div>
+          </div>
+
+          <!-- Images to PDF -->
+          <div class="card">
+            <h3><i class="fas fa-images"></i> Images to PDF</h3>
+            <div class="drop-zone" data-endpoint="/api/convert/images-to-pdf">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Drag & Drop images here<br>or click to select</p>
+            </div>
+          </div>
+
+          <!-- CSV to Excel -->
+          <div class="card">
+            <h3><i class="fas fa-file-excel"></i> CSV to Excel</h3>
+            <div class="drop-zone" data-endpoint="/api/convert/csv-to-excel">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Drag & Drop CSV file here<br>or click to select</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Text Tools Section -->
+      <section class="section">
+        <h2><i class="fas fa-font"></i> Text Tools</h2>
+        <div class="tools-grid">
+          <!-- Text Case Converter -->
+          <div class="card">
+            <h3><i class="fas fa-text-height"></i> Text Case Converter</h3>
+            <div class="input-group">
+              <textarea id="textInput" rows="4" placeholder="Enter your text here..."></textarea>
+            </div>
+            <button class="btn" onclick="convertCase('upper')">UPPERCASE</button>
+            <button class="btn" onclick="convertCase('lower')">lowercase</button>
+            <button class="btn" onclick="convertCase('title')">Title Case</button>
+          </div>
+
+          <!-- Character Counter -->
+          <div class="card">
+            <h3><i class="fas fa-calculator"></i> Character Counter</h3>
+            <div class="input-group">
+              <textarea id="countInput" rows="4" placeholder="Enter text to count characters..." oninput="countCharacters()"></textarea>
+            </div>
+            <div class="result-area" id="countResult">
+              Characters: 0 | Words: 0
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Programming Tools Section -->
+      <section class="section">
+        <h2><i class="fas fa-code"></i> Programming Tools</h2>
+        <div class="tools-grid">
+          <!-- JSON Formatter -->
+          <div class="card">
+            <h3><i class="fas fa-brackets-curly"></i> JSON Formatter</h3>
+            <div class="input-group">
+              <textarea id="jsonInput" rows="4" placeholder="Enter JSON here..."></textarea>
+            </div>
+            <button class="btn" onclick="formatJSON()">Format JSON</button>
+            <div class="result-area" id="jsonResult"></div>
+          </div>
+
+          <!-- Base64 Encoder/Decoder -->
+          <div class="card">
+            <h3><i class="fas fa-exchange-alt"></i> Base64 Tools</h3>
+            <div class="input-group">
+              <textarea id="base64Input" rows="4" placeholder="Enter text to encode/decode..."></textarea>
+            </div>
+            <button class="btn" onclick="base64Encode()">Encode</button>
+            <button class="btn" onclick="base64Decode()">Decode</button>
+            <div class="result-area" id="base64Result"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // File Conversion Functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const dropZones = document.querySelectorAll('.drop-zone');
+        
+        dropZones.forEach(zone => {
+          zone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            zone.classList.add('dragover');
+          });
+
+          zone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            zone.classList.remove('dragover');
+          });
+
+          zone.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            zone.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            handleFiles(files, zone);
+          });
+
+          zone.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.multiple = zone.getAttribute('data-endpoint') === '/api/convert/images-to-pdf';
+            input.onchange = (e) => handleFiles(e.target.files, zone);
+            input.click();
+          });
+        });
+
+        async function handleFiles(files, zone) {
+          const endpoint = zone.getAttribute('data-endpoint');
+          const formData = new FormData();
+          
+          if (endpoint === '/api/convert/images-to-pdf') {
+            for (let file of files) {
+              formData.append('files', file);
+            }
+          } else {
+            formData.append('file', files[0]);
+          }
+
+          const originalContent = zone.innerHTML;
+          zone.innerHTML = '<div class="loading">Converting... Please wait</div>';
+
+          try {
+            const response = await fetch(endpoint, {
+              method: 'POST',
+              body: formData
+            });
+
+            if (!response.ok) {
+              const errorData = await response.json();
+              throw new Error(errorData.error || 'Conversion failed');
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = files[0].name.split('.')[0] + '_converted' + getFileExtension(endpoint);
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('Conversion successful!');
+          } catch (error) {
+            console.error('Error:', error);
+            alert(error.message || 'An error occurred during conversion');
+          } finally {
+            zone.innerHTML = originalContent;
+          }
+        }
+
+        function getFileExtension(endpoint) {
+          switch(endpoint) {
+            case '/api/convert/docx-to-pdf':
+              return '.pdf';
+            case '/api/convert/pdf-to-docx':
+              return '.docx';
+            case '/api/convert/images-to-pdf':
+              return '.pdf';
+            case '/api/convert/csv-to-excel':
+              return '.xlsx';
+            default:
+              return '';
+          }
+        }
+      });
+
+      // Text Tools Functions
+      function convertCase(type) {
+        const input = document.getElementById('textInput');
+        const text = input.value;
+        switch(type) {
+          case 'upper':
+            input.value = text.toUpperCase();
+            break;
+          case 'lower':
+            input.value = text.toLowerCase();
+            break;
+          case 'title':
+            input.value = text.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+            break;
+        }
+      }
+
+      function countCharacters() {
+        const text = document.getElementById('countInput').value;
+        const chars = text.length;
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        document.getElementById('countResult').textContent = `Characters: ${chars} | Words: ${words}`;
+      }
+
+      // Programming Tools Functions
+      function formatJSON() {
+        try {
+          const input = document.getElementById('jsonInput').value;
+          const formatted = JSON.stringify(JSON.parse(input), null, 2);
+          document.getElementById('jsonResult').innerHTML = `<pre>${formatted}</pre>`;
+        } catch (e) {
+          document.getElementById('jsonResult').textContent = 'Invalid JSON';
+        }
+      }
+
+      function base64Encode() {
+        const input = document.getElementById('base64Input').value;
+        try {
+          const encoded = btoa(input);
+          document.getElementById('base64Result').textContent = encoded;
+        } catch (e) {
+          document.getElementById('base64Result').textContent = 'Invalid input for encoding';
+        }
+      }
+
+      function base64Decode() {
+        const input = document.getElementById('base64Input').value;
+        try {
+          const decoded = atob(input);
+          document.getElementById('base64Result').textContent = decoded;
+        } catch (e) {
+          document.getElementById('base64Result').textContent = 'Invalid base64 string';
+        }
+      }
+    </script>
+  </body>
+</html>
