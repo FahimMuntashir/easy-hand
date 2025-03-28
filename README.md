@@ -85,27 +85,27 @@ python app.py
 
 5. Open your browser and navigate to:
 
-```
+
 
 ## 📁 Project Structure
 
 ```
 
 easy-hand/
-├── app.py # Main Flask application
-├── requirements.txt # Python dependencies
+├── app.py
+├── requirements.txt 
 ├── templates/  
-│ └── index.html # Frontend template
+│ └── index.html
 ├── static/
 │ └── css/
-│ └── style.css # Styles (if separated)
-└── temp/ # Temporary files directory
+│ └── style.css
+└── temp/ 
 
 ````
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
+Welcome contributions! Here's how you can help:
 
 1. Fork the repository
 2. Create your feature branch
@@ -177,5 +177,3 @@ For questions, suggestions, or issues:
 
 ---
 
-Made with ❤️ by [Fahim Muntashir]
-````
