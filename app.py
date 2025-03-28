@@ -6,6 +6,10 @@ import platform
 from PIL import Image
 import pandas as pd
 from flask_cors import CORS
+from nbconvert import PDFExporter
+import nbformat
+import io
+import subprocess
 
 # Create a persistent temporary directory
 TEMP_DIR = os.path.join(os.getcwd(), 'temp')
@@ -198,6 +202,157 @@ def csv_to_excel():
 
     finally:
         cleanup_temp_files()
+
+@app.route('/api/convert/ppt-to-pdf', methods=['POST'])
+def ppt_to_pdf():
+    try:
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file provided'}), 400
+            
+        file = request.files['file']
+        if not file.filename:
+            return jsonify({'error': 'No file selected'}), 400
+            
+        if not file.filename.endswith(('.ppt', '.pptx')):
+            return jsonify({'error': 'Invalid file format. Please upload a PPT/PPTX file.'}), 400
+
+        input_path = os.path.join(TEMP_DIR, secure_filename(file.filename))
+        output_path = os.path.join(TEMP_DIR, 'converted.pdf')
+        file.save(input_path)
+
+        try:
+            # Convert using unoconv
+            subprocess.run(['unoconv', '-f', 'pdf', '-o', output_path, input_path], check=True)
+            
+            if not os.path.exists(output_path):
+                raise Exception("Conversion failed")
+
+        except subprocess.CalledProcessError as conv_error:
+            print(f"Conversion error: {conv_error}")
+            return jsonify({'error': 'Failed to convert PPT to PDF. Please make sure unoconv and LibreOffice are installed.'}), 500
+        except Exception as e:
+            print(f"Error: {e}")
+            return jsonify({'error': 'Conversion failed'}), 500
+
+        return send_file(
+            output_path,
+            as_attachment=True,
+            download_name='converted.pdf',
+            mimetype='application/pdf'
+        )
+
+    except Exception as e:
+        print(f"Error in ppt_to_pdf: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+    finally:
+        cleanup_temp_files()
+
+@app.route('/api/convert/ipynb-to-pdf', methods=['POST'])
+def ipynb_to_pdf():
+    try:
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file provided'}), 400
+            
+        file = request.files['file']
+        if not file.filename:
+            return jsonify({'error': 'No file selected'}), 400
+            
+        if not file.filename.endswith('.ipynb'):
+            return jsonify({'error': 'Invalid file format. Please upload an IPYNB file.'}), 400
+
+        # Read the notebook
+        notebook_content = nbformat.reads(file.read().decode('utf-8'), as_version=4)
+        
+        # Convert to PDF
+        pdf_exporter = PDFExporter()
+        pdf_data, resources = pdf_exporter.from_notebook_node(notebook_content)
+        
+        # Create response
+        return send_file(
+            io.BytesIO(pdf_data),
+            as_attachment=True,
+            download_name='converted.pdf',
+            mimetype='application/pdf'
+        )
+
+    except Exception as e:
+        print(f"Error in ipynb_to_pdf: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/convert/compress-image', methods=['POST'])
+def compress_image():
+    try:
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file provided'}), 400
+            
+        file = request.files['file']
+        if not file.filename:
+            return jsonify({'error': 'No file selected'}), 400
+            
+        if not file.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+            return jsonify({'error': 'Invalid file format. Please upload a PNG or JPEG file.'}), 400
+
+        # Open and compress image
+        image = Image.open(file)
+        output = io.BytesIO()
+        
+        # Convert to RGB if necessary
+        if image.mode in ('RGBA', 'P'):
+            image = image.convert('RGB')
+            
+        # Save with compression
+        image.save(output, format='JPEG', quality=60, optimize=True)
+        output.seek(0)
+
+        return send_file(
+            output,
+            as_attachment=True,
+            download_name='compressed_image.jpg',
+            mimetype='image/jpeg'
+        )
+
+    except Exception as e:
+        print(f"Error in compress_image: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/convert/convert-image', methods=['POST'])
+def convert_image():
+    try:
+        if 'file' not in request.files or 'format' not in request.form:
+            return jsonify({'error': 'No file or format provided'}), 400
+            
+        file = request.files['file']
+        target_format = request.form['format'].lower()
+        
+        if not file.filename:
+            return jsonify({'error': 'No file selected'}), 400
+            
+        if target_format not in ['png', 'jpg', 'jpeg', 'gif', 'bmp']:
+            return jsonify({'error': 'Invalid target format'}), 400
+
+        # Open and convert image
+        image = Image.open(file)
+        output = io.BytesIO()
+        
+        # Convert to RGB if necessary (except for PNG which can handle RGBA)
+        if target_format != 'png' and image.mode in ('RGBA', 'P'):
+            image = image.convert('RGB')
+            
+        # Save in new format
+        image.save(output, format=target_format.upper())
+        output.seek(0)
+
+        return send_file(
+            output,
+            as_attachment=True,
+            download_name=f'converted_image.{target_format}',
+            mimetype=f'image/{target_format}'
+        )
+
+    except Exception as e:
+        print(f"Error in convert_image: {str(e)}")
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000) 

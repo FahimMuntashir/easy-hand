@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>File Tools & Converters</title>
+    <title>Easy Hand - Your All-in-One Digital Tool</title>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
       rel="stylesheet"
@@ -37,7 +37,7 @@
         background: white;
         border-radius: 8px;
         padding: 20px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
       .card h3 {
         margin-top: 0;
@@ -107,9 +107,38 @@
         border-radius: 4px;
         min-height: 50px;
       }
+      .header {
+        text-align: center;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #3498db, #2c3e50);
+        color: white;
+        margin-bottom: 40px;
+        border-radius: 0 0 20px 20px;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 2.5em;
+      }
+      .header p {
+        margin: 10px 0 0;
+        font-size: 1.2em;
+        opacity: 0.9;
+      }
+      .format-select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
     </style>
   </head>
   <body>
+    <div class="header">
+      <h1>Easy Hand</h1>
+      <p>Your all-in-one solution for everyday digital tasks</p>
+    </div>
+
     <div class="container">
       <!-- File Conversion Tools Section -->
       <section class="section">
@@ -120,7 +149,7 @@
             <h3><i class="fas fa-file-pdf"></i> DOCX to PDF</h3>
             <div class="drop-zone" data-endpoint="/api/convert/docx-to-pdf">
               <i class="fas fa-cloud-upload-alt"></i>
-              <p>Drag & Drop DOCX file here<br>or click to select</p>
+              <p>Drag & Drop DOCX file here<br />or click to select</p>
             </div>
           </div>
 
@@ -129,7 +158,25 @@
             <h3><i class="fas fa-file-word"></i> PDF to DOCX</h3>
             <div class="drop-zone" data-endpoint="/api/convert/pdf-to-docx">
               <i class="fas fa-cloud-upload-alt"></i>
-              <p>Drag & Drop PDF file here<br>or click to select</p>
+              <p>Drag & Drop PDF file here<br />or click to select</p>
+            </div>
+          </div>
+
+          <!-- PPT to PDF -->
+          <div class="card">
+            <h3><i class="fas fa-file-powerpoint"></i> PPT to PDF</h3>
+            <div class="drop-zone" data-endpoint="/api/convert/ppt-to-pdf">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Drag & Drop PPT/PPTX file here<br />or click to select</p>
+            </div>
+          </div>
+
+          <!-- IPYNB to PDF -->
+          <div class="card">
+            <h3><i class="fas fa-code"></i> Jupyter to PDF</h3>
+            <div class="drop-zone" data-endpoint="/api/convert/ipynb-to-pdf">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Drag & Drop IPYNB file here<br />or click to select</p>
             </div>
           </div>
 
@@ -138,7 +185,7 @@
             <h3><i class="fas fa-images"></i> Images to PDF</h3>
             <div class="drop-zone" data-endpoint="/api/convert/images-to-pdf">
               <i class="fas fa-cloud-upload-alt"></i>
-              <p>Drag & Drop images here<br>or click to select</p>
+              <p>Drag & Drop images here<br />or click to select</p>
             </div>
           </div>
 
@@ -147,8 +194,38 @@
             <h3><i class="fas fa-file-excel"></i> CSV to Excel</h3>
             <div class="drop-zone" data-endpoint="/api/convert/csv-to-excel">
               <i class="fas fa-cloud-upload-alt"></i>
-              <p>Drag & Drop CSV file here<br>or click to select</p>
+              <p>Drag & Drop CSV file here<br />or click to select</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Image & Media Processing Section -->
+      <section class="section">
+        <h2><i class="fas fa-image"></i> Image & Media Processing</h2>
+        <div class="tools-grid">
+          <!-- Image Compressor -->
+          <div class="card">
+            <h3><i class="fas fa-compress"></i> Image Compressor</h3>
+            <div class="drop-zone" data-endpoint="/api/convert/compress-image">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Drag & Drop image here<br />or click to select</p>
+            </div>
+          </div>
+
+          <!-- Image Format Converter -->
+          <div class="card">
+            <h3><i class="fas fa-exchange-alt"></i> Image Format Converter</h3>
+            <div class="drop-zone" data-endpoint="/api/convert/convert-image">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Drag & Drop image here<br />or click to select</p>
+            </div>
+            <select class="format-select" id="imageFormat">
+              <option value="png">Convert to PNG</option>
+              <option value="jpg">Convert to JPG</option>
+              <option value="gif">Convert to GIF</option>
+              <option value="bmp">Convert to BMP</option>
+            </select>
           </div>
         </div>
       </section>
@@ -161,18 +238,33 @@
           <div class="card">
             <h3><i class="fas fa-text-height"></i> Text Case Converter</h3>
             <div class="input-group">
-              <textarea id="textInput" rows="4" placeholder="Enter your text here..."></textarea>
+              <textarea
+                id="textInput"
+                rows="4"
+                placeholder="Enter your text here..."
+              ></textarea>
             </div>
-            <button class="btn" onclick="convertCase('upper')">UPPERCASE</button>
-            <button class="btn" onclick="convertCase('lower')">lowercase</button>
-            <button class="btn" onclick="convertCase('title')">Title Case</button>
+            <button class="btn" onclick="convertCase('upper')">
+              UPPERCASE
+            </button>
+            <button class="btn" onclick="convertCase('lower')">
+              lowercase
+            </button>
+            <button class="btn" onclick="convertCase('title')">
+              Title Case
+            </button>
           </div>
 
           <!-- Character Counter -->
           <div class="card">
             <h3><i class="fas fa-calculator"></i> Character Counter</h3>
             <div class="input-group">
-              <textarea id="countInput" rows="4" placeholder="Enter text to count characters..." oninput="countCharacters()"></textarea>
+              <textarea
+                id="countInput"
+                rows="4"
+                placeholder="Enter text to count characters..."
+                oninput="countCharacters()"
+              ></textarea>
             </div>
             <div class="result-area" id="countResult">
               Characters: 0 | Words: 0
@@ -189,7 +281,11 @@
           <div class="card">
             <h3><i class="fas fa-brackets-curly"></i> JSON Formatter</h3>
             <div class="input-group">
-              <textarea id="jsonInput" rows="4" placeholder="Enter JSON here..."></textarea>
+              <textarea
+                id="jsonInput"
+                rows="4"
+                placeholder="Enter JSON here..."
+              ></textarea>
             </div>
             <button class="btn" onclick="formatJSON()">Format JSON</button>
             <div class="result-area" id="jsonResult"></div>
@@ -199,7 +295,11 @@
           <div class="card">
             <h3><i class="fas fa-exchange-alt"></i> Base64 Tools</h3>
             <div class="input-group">
-              <textarea id="base64Input" rows="4" placeholder="Enter text to encode/decode..."></textarea>
+              <textarea
+                id="base64Input"
+                rows="4"
+                placeholder="Enter text to encode/decode..."
+              ></textarea>
             </div>
             <button class="btn" onclick="base64Encode()">Encode</button>
             <button class="btn" onclick="base64Decode()">Decode</button>
@@ -211,153 +311,183 @@
 
     <script>
       // File Conversion Functionality
-      document.addEventListener('DOMContentLoaded', function() {
-        const dropZones = document.querySelectorAll('.drop-zone');
-        
-        dropZones.forEach(zone => {
-          zone.addEventListener('dragover', (e) => {
+      document.addEventListener("DOMContentLoaded", function () {
+        const dropZones = document.querySelectorAll(".drop-zone");
+
+        dropZones.forEach((zone) => {
+          zone.addEventListener("dragover", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            zone.classList.add('dragover');
+            zone.classList.add("dragover");
           });
 
-          zone.addEventListener('dragleave', (e) => {
+          zone.addEventListener("dragleave", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            zone.classList.remove('dragover');
+            zone.classList.remove("dragover");
           });
 
-          zone.addEventListener('drop', async (e) => {
+          zone.addEventListener("drop", async (e) => {
             e.preventDefault();
             e.stopPropagation();
-            zone.classList.remove('dragover');
-            
+            zone.classList.remove("dragover");
+
             const files = e.dataTransfer.files;
             handleFiles(files, zone);
           });
 
-          zone.addEventListener('click', () => {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.multiple = zone.getAttribute('data-endpoint') === '/api/convert/images-to-pdf';
+          zone.addEventListener("click", () => {
+            const input = document.createElement("input");
+            input.type = "file";
+            input.multiple =
+              zone.getAttribute("data-endpoint") ===
+              "/api/convert/images-to-pdf";
             input.onchange = (e) => handleFiles(e.target.files, zone);
             input.click();
           });
         });
 
         async function handleFiles(files, zone) {
-          const endpoint = zone.getAttribute('data-endpoint');
+          const endpoint = zone.getAttribute("data-endpoint");
           const formData = new FormData();
-          
-          if (endpoint === '/api/convert/images-to-pdf') {
+
+          if (endpoint === "/api/convert/images-to-pdf") {
             for (let file of files) {
-              formData.append('files', file);
+              formData.append("files", file);
             }
+          } else if (endpoint === "/api/convert/convert-image") {
+            formData.append("file", files[0]);
+            formData.append(
+              "format",
+              document.getElementById("imageFormat").value
+            );
           } else {
-            formData.append('file', files[0]);
+            formData.append("file", files[0]);
           }
 
           const originalContent = zone.innerHTML;
-          zone.innerHTML = '<div class="loading">Converting... Please wait</div>';
+          zone.innerHTML =
+            '<div class="loading">Processing... Please wait</div>';
 
           try {
             const response = await fetch(endpoint, {
-              method: 'POST',
-              body: formData
+              method: "POST",
+              body: formData,
             });
 
             if (!response.ok) {
               const errorData = await response.json();
-              throw new Error(errorData.error || 'Conversion failed');
+              throw new Error(errorData.error || "Conversion failed");
             }
 
             const blob = await response.blob();
             const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
+            const a = document.createElement("a");
             a.href = url;
-            a.download = files[0].name.split('.')[0] + '_converted' + getFileExtension(endpoint);
+            a.download = getOutputFilename(files[0].name, endpoint);
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
-            
-            alert('Conversion successful!');
+
+            alert("Processing successful!");
           } catch (error) {
-            console.error('Error:', error);
-            alert(error.message || 'An error occurred during conversion');
+            console.error("Error:", error);
+            alert(error.message || "An error occurred during processing");
           } finally {
             zone.innerHTML = originalContent;
           }
         }
 
+        function getOutputFilename(originalName, endpoint) {
+          const baseName = originalName.split(".")[0];
+          if (endpoint === "/api/convert/convert-image") {
+            const format = document.getElementById("imageFormat").value;
+            return `${baseName}_converted.${format}`;
+          }
+          return baseName + getFileExtension(endpoint);
+        }
+
         function getFileExtension(endpoint) {
-          switch(endpoint) {
-            case '/api/convert/docx-to-pdf':
-              return '.pdf';
-            case '/api/convert/pdf-to-docx':
-              return '.docx';
-            case '/api/convert/images-to-pdf':
-              return '.pdf';
-            case '/api/convert/csv-to-excel':
-              return '.xlsx';
+          switch (endpoint) {
+            case "/api/convert/docx-to-pdf":
+            case "/api/convert/ppt-to-pdf":
+            case "/api/convert/ipynb-to-pdf":
+            case "/api/convert/images-to-pdf":
+              return ".pdf";
+            case "/api/convert/pdf-to-docx":
+              return ".docx";
+            case "/api/convert/csv-to-excel":
+              return ".xlsx";
+            case "/api/convert/compress-image":
+              return ".jpg";
             default:
-              return '';
+              return "";
           }
         }
       });
 
       // Text Tools Functions
       function convertCase(type) {
-        const input = document.getElementById('textInput');
+        const input = document.getElementById("textInput");
         const text = input.value;
-        switch(type) {
-          case 'upper':
+        switch (type) {
+          case "upper":
             input.value = text.toUpperCase();
             break;
-          case 'lower':
+          case "lower":
             input.value = text.toLowerCase();
             break;
-          case 'title':
-            input.value = text.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+          case "title":
+            input.value = text.replace(
+              /\w\S*/g,
+              (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+            );
             break;
         }
       }
 
       function countCharacters() {
-        const text = document.getElementById('countInput').value;
+        const text = document.getElementById("countInput").value;
         const chars = text.length;
         const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-        document.getElementById('countResult').textContent = `Characters: ${chars} | Words: ${words}`;
+        document.getElementById(
+          "countResult"
+        ).textContent = `Characters: ${chars} | Words: ${words}`;
       }
 
       // Programming Tools Functions
       function formatJSON() {
         try {
-          const input = document.getElementById('jsonInput').value;
+          const input = document.getElementById("jsonInput").value;
           const formatted = JSON.stringify(JSON.parse(input), null, 2);
-          document.getElementById('jsonResult').innerHTML = `<pre>${formatted}</pre>`;
+          document.getElementById(
+            "jsonResult"
+          ).innerHTML = `<pre>${formatted}</pre>`;
         } catch (e) {
-          document.getElementById('jsonResult').textContent = 'Invalid JSON';
+          document.getElementById("jsonResult").textContent = "Invalid JSON";
         }
       }
 
       function base64Encode() {
-        const input = document.getElementById('base64Input').value;
+        const input = document.getElementById("base64Input").value;
         try {
           const encoded = btoa(input);
-          document.getElementById('base64Result').textContent = encoded;
+          document.getElementById("base64Result").textContent = encoded;
         } catch (e) {
-          document.getElementById('base64Result').textContent = 'Invalid input for encoding';
+          document.getElementById("base64Result").textContent =
+            "Invalid input for encoding";
         }
       }
 
       function base64Decode() {
-        const input = document.getElementById('base64Input').value;
+        const input = document.getElementById("base64Input").value;
         try {
           const decoded = atob(input);
-          document.getElementById('base64Result').textContent = decoded;
+          document.getElementById("base64Result").textContent = decoded;
         } catch (e) {
-          document.getElementById('base64Result').textContent = 'Invalid base64 string';
+          document.getElementById("base64Result").textContent =
+            "Invalid base64 string";
         }
       }
     </script>
